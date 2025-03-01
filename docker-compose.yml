@@ -1,8 +1,8 @@
 
 services:
   web:
-    container_name: antonio-flask
-    hostname: antonio-flask
+    container_name: maugv-flask
+    hostname: maugv-flask
     build: ./app
     entrypoint:
       - flask
