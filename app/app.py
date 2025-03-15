@@ -1,7 +1,9 @@
 import json
 import figuras_random
 import dibuja
-from flask import Flask, json, render_template, Response
+import dibuja_clima
+import weather
+from flask import Flask, json, render_template, Response, request
 app = Flask(__name__)
 
 @app.route('/', methods=('GET', 'POST'))
@@ -34,6 +36,20 @@ def fr():
 @app.route('/dibuja', methods=('GET', 'POST'))
 def db():
     r = Response(response=dibuja.dibuja(), status=200, mimetype="image/png")
+    r.headers["Content-Type"] = "image/png"
+    return r
+
+@app.route('/clima', methods=('GET', 'POST'))
+def cl():
+    clima = weather.Clima()
+    return clima.extrae_relevantes('Toluca')
+
+@app.route('/dibuja_clima', methods=('GET', 'POST'))
+def dc():
+    ciudad = request.args.get('ciudad')
+    if ciudad is None:
+        ciudad = 'Toluca'
+    r = Response(response=dibuja_clima.dibuja(ciudad))
     r.headers["Content-Type"] = "image/png"
     return r
 
