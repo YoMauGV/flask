@@ -35,7 +35,7 @@ def fr():
 
 @app.route('/dibuja', methods=('GET', 'POST'))
 def db():
-    r = Response(response=dibuja.dibuja(), status=200, mimetype="image/png")
+    r = Response(response = dibuja.dibuja(), status=200, mimetype="image/png")
     r.headers["Content-Type"] = "image/png"
     return r
 
@@ -49,7 +49,9 @@ def dc():
     ciudad = request.args.get('ciudad')
     if ciudad is None:
         ciudad = 'Toluca'
-    r = Response(response=dibuja_clima.dibuja(ciudad))
+    if ciudad is '':
+        ciudad = 'Toluca'
+    r = Response(response = dibuja_clima.dibuja(ciudad))
     r.headers["Content-Type"] = "image/png"
     return r
 
